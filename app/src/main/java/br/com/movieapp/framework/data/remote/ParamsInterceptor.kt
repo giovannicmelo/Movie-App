@@ -1,9 +1,9 @@
-package br.com.movieapp.core.data.remote
+package br.com.movieapp.framework.data.remote
 
 import br.com.movieapp.BuildConfig
-import br.com.movieapp.core.data.util.API_KEY_PARAM
-import br.com.movieapp.core.data.util.LANGUAGE_PARAM
-import br.com.movieapp.core.data.util.LANGUAGE_VALUE
+import br.com.movieapp.framework.util.API_KEY_PARAM
+import br.com.movieapp.framework.util.LANGUAGE_PARAM
+import br.com.movieapp.framework.util.LANGUAGE_VALUE
 import okhttp3.Interceptor
 import okhttp3.Response
 
