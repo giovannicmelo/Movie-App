@@ -1,4 +1,4 @@
-package br.com.movieapp.framework.data.remote
+package br.com.movieapp.core.data.remote
 
 import br.com.movieapp.framework.data.remote.response.MovieDetailResponse
 import br.com.movieapp.framework.data.remote.response.MovieResponse

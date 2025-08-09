@@ -1,4 +1,4 @@
-package br.com.movieapp.framework.di
+package br.com.movieapp.core.di
 
 import br.com.movieapp.BuildConfig
 import br.com.movieapp.framework.data.remote.MovieService
