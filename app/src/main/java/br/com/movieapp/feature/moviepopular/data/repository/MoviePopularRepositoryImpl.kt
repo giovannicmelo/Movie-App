@@ -7,8 +7,9 @@ import br.com.movieapp.core.domain.model.Movie
 import br.com.movieapp.feature.moviepopular.domain.repository.MoviePopularRepository
 import br.com.movieapp.feature.moviepopular.domain.source.MoviePopularRemoteDataSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MoviePopularRepositoryImpl(
+class MoviePopularRepositoryImpl @Inject constructor(
     private val remoteDataSource: MoviePopularRemoteDataSource,
 ) : MoviePopularRepository {
 
