@@ -2,35 +2,36 @@ package br.com.movieapp.core.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import br.com.movieapp.core.data.remote.model.MovieResult
-import br.com.movieapp.core.data.remote.response.MovieResponse
-import br.com.movieapp.core.domain.model.Movie
-import br.com.movieapp.feature.moviepopular.data.mapper.toMovie
-import br.com.movieapp.feature.moviepopular.domain.source.MoviePopularRemoteDataSource
+import br.com.movieapp.core.data.remote.model.SearchResult
+import br.com.movieapp.core.data.remote.response.SearchResponse
+import br.com.movieapp.core.domain.model.MovieSearch
+import br.com.movieapp.feature.searchmovie.data.mapper.toMovieSearch
+import br.com.movieapp.feature.searchmovie.domain.source.MovieSearchRemoteDataSource
 import retrofit2.HttpException
 import java.io.IOException
 
 private const val LIMIT_PAGE = 20
 
-class MoviePagingSource(
-    private val remoteDataSource: MoviePopularRemoteDataSource,
-) : PagingSource<Int, Movie>() {
+class MovieSearchPagingSource(
+    private val query: String,
+    private val remoteDataSource: MovieSearchRemoteDataSource,
+) : PagingSource<Int, MovieSearch>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, MovieSearch>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(LIMIT_PAGE) ?: anchorPage?.nextKey?.minus(LIMIT_PAGE)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieSearch> {
         return try {
             val pageNumber: Int = params.key ?: 1
-            val response: MovieResponse = remoteDataSource.getPopularMovies(pageNumber)
-            val movies: List<MovieResult> = response.results
+            val response: SearchResponse = remoteDataSource.getSearchMovies(pageNumber, query)
+            val movies: List<SearchResult> = response.results
 
             LoadResult.Page(
-                data = movies.toMovie(),
+                data = movies.toMovieSearch(),
                 prevKey = if (pageNumber == 1) null else pageNumber - 1,
                 nextKey = if (movies.isEmpty()) null else pageNumber + 1,
             )
