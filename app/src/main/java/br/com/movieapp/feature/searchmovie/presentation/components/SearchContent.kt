@@ -80,16 +80,7 @@ fun SearchContent(
                             LoadingView()
                         }
                     }
-                    loadState.refresh is LoadState.Error -> {
-                        isLoading = false
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            ErrorScreen(
-                                message = "Não foi possível carregar os filmes",
-                                onRetry = { retry() }
-                            )
-                        }
-                    }
-                    loadState.append is LoadState.Error -> {
+                    loadState.refresh is LoadState.Error || loadState.append is LoadState.Error -> {
                         isLoading = false
                         item(span = { GridItemSpan(maxLineSpan) }) {
                             ErrorScreen(

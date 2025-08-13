@@ -46,25 +46,12 @@ fun MovieContent(
             }
             pagingMovies.apply {
                 when {
-                    loadState.refresh is LoadState.Loading -> {
+                    loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading -> {
                         item(span = { GridItemSpan(maxLineSpan) }) {
                             LoadingView()
                         }
                     }
-                    loadState.append is LoadState.Loading -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            LoadingView()
-                        }
-                    }
-                    loadState.refresh is LoadState.Error -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            ErrorScreen(
-                                message = "Não foi possível carregar os filmes",
-                                onRetry = { retry() }
-                            )
-                        }
-                    }
-                    loadState.append is LoadState.Error -> {
+                    loadState.refresh is LoadState.Error || loadState.append is LoadState.Error -> {
                         item(span = { GridItemSpan(maxLineSpan) }) {
                             ErrorScreen(
                                 message = "Não foi possível carregar os filmes",
