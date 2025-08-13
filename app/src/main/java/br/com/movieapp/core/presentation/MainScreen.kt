@@ -1,5 +1,6 @@
 package br.com.movieapp.core.presentation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,11 +15,12 @@ import br.com.movieapp.core.presentation.navigation.NavigationGraph
 fun MainScreen(navController: NavHostController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) },
-        content = { innerPadding ->
-            NavigationGraph(
-                navController = navController,
-                modifier = Modifier.padding(innerPadding),
-            )
+        content = { paddingValues ->
+            Box(modifier = Modifier.padding(paddingValues)) {
+                NavigationGraph(
+                    navController = navController,
+                )
+            }
         }
     )
 }
