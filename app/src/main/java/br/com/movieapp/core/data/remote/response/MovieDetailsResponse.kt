@@ -7,7 +7,7 @@ import br.com.movieapp.core.data.remote.model.ProductionCountry
 import br.com.movieapp.core.data.remote.model.SpokenLanguage
 import com.google.gson.annotations.SerializedName
 
-data class MovieDetailResponse(
+data class MovieDetailsResponse(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

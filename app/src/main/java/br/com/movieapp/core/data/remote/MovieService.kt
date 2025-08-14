@@ -1,6 +1,6 @@
 package br.com.movieapp.core.data.remote
 
-import br.com.movieapp.core.data.remote.response.MovieDetailResponse
+import br.com.movieapp.core.data.remote.response.MovieDetailsResponse
 import br.com.movieapp.core.data.remote.response.MovieResponse
 import br.com.movieapp.core.data.remote.response.SearchResponse
 import retrofit2.http.GET
@@ -23,7 +23,7 @@ interface MovieService {
     @GET("movie/{movie_id}")
     suspend fun getMovie(
         @Path("movie_id") movieId: Int,
-    ): MovieDetailResponse
+    ): MovieDetailsResponse
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilarMovies(
