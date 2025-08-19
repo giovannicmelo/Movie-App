@@ -1,7 +1,6 @@
 package br.com.movieapp.feature.moviedetails.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -19,7 +18,6 @@ import br.com.movieapp.feature.moviepopular.presentation.components.MovieItem
 @Composable
 fun MovieDetailsSimilar(
     pagingMoviesSimilar: LazyPagingItems<Movie>,
-    onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -34,7 +32,7 @@ fun MovieDetailsSimilar(
                     voteAverage = movie.voteAverage,
                     imageUrl = movie.imageUrl,
                     id = movie.id,
-                    onItemClick = { movieId -> onItemClick(movieId) },
+                    onItemClick = {},
                 )
             }
         }
