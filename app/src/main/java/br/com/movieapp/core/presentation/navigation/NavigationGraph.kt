@@ -4,8 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType.Companion.IntType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import br.com.movieapp.core.util.MOVIE_DETAIL_ARGUMENT_KEY
+import br.com.movieapp.feature.moviedetails.presentation.MovieDetailsScreen
+import br.com.movieapp.feature.moviedetails.presentation.event.MovieDetailsEvent
+import br.com.movieapp.feature.moviedetails.presentation.state.MovieDetailsState
+import br.com.movieapp.feature.moviedetails.presentation.viewmodel.MovieDetailsViewModel
 import br.com.movieapp.feature.moviepopular.presentation.MoviePopularScreen
 import br.com.movieapp.feature.moviepopular.presentation.state.MoviePopularState
 import br.com.movieapp.feature.moviepopular.presentation.viewmodel.MoviePopularViewModel
@@ -31,7 +38,7 @@ fun NavigationGraph(
             MoviePopularScreen(
                 uiState = uiState,
                 navigateToDetail = { movieId ->
-
+                    navController.navigate(BottomNavItem.MovieDetails.passMovieId(movieId))
                 }
             )
         }
@@ -46,8 +53,27 @@ fun NavigationGraph(
                 onEvent = onEvent,
                 onFetchMovies = onFetchMovies,
                 navigateToDetail = { movieId ->
-
+                    navController.navigate(BottomNavItem.MovieDetails.passMovieId(movieId))
                 }
+            )
+        }
+        composable(
+            route = BottomNavItem.MovieDetails.route,
+            arguments = listOf(
+                navArgument(MOVIE_DETAIL_ARGUMENT_KEY) {
+                    type = IntType
+                    defaultValue = 0
+                }
+            )
+        ) {
+            val movieId = it.arguments?.getInt(MOVIE_DETAIL_ARGUMENT_KEY)
+            val viewModel: MovieDetailsViewModel = hiltViewModel()
+            val uiState: MovieDetailsState = viewModel.uiState
+            val getMovieDetails: (MovieDetailsEvent.GetMovieDetails) -> Unit = viewModel::getMovieDetails
+            MovieDetailsScreen(
+                movieId = movieId,
+                uiState = uiState,
+                getMovieDetails = getMovieDetails
             )
         }
         composable(BottomNavItem.MovieFavorites.route) {
